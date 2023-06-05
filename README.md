@@ -33,6 +33,7 @@ fetchContacts - одержання масиву контактів (метод G
 addContact - додавання контакту (метод POST). Базовий тип екшену "contacts/addContact".
 deleteContact - видалення контакту (метод DELETE). Базовий тип екшену "contacts/deleteContact".
 
+
 # React homework template
 
 Этот проект был создан при помощи
