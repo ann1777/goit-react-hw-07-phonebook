@@ -4,14 +4,13 @@ import { List, ContactItem, DeleteButton } from './ContactList.styled';
 import { fetchContactsThunk,  deleteContactsThunk} from 'redux/phonebook/phonebook-operations';
 
 function ContactList() {
-  const contacts = useSelector(state => state.contacts.contacts);
-  const filter = useSelector(state => state.contacts.filter);
   const dispatcher = useDispatch();
-
   useEffect(() => {
     dispatcher(fetchContactsThunk());
   }, [dispatcher]);
-
+  const contacts = useSelector(state => state.contacts.contacts);
+  console.log(contacts);
+  const filter = useSelector(state => state.contacts.filter);
   const filteredContacts = contacts.filter(el =>
     el.name.toLowerCase().includes(filter.toLocaleLowerCase())
   );

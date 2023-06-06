@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 // import * as mockApi from 'services/mock-api';
-axios.defaults.baseURL = 'https://647de0acaf984710854a85e8.mockapi.io/contacts/';
+axios.defaults.baseURL = 'https://647de0acaf984710854a85e8.mockapi.io/';
 
 export const fetchContactsThunk = createAsyncThunk(
-    'phonebook/fetchContacks',
+    'phonebook/fetchContacts',
     async (_, {rejectWithValue}) => {
         try {
             // const { data } = await mockApi.fetchContacts();
@@ -21,8 +21,8 @@ export const postContactsThunk = createAsyncThunk(
     async (contact, {rejectWithValue}) => {
         try {
             // const contacts = await mockApi.postContacts(contact);
-            const { contacts } = await axios.post('contacts', contact);
-            return contacts;
+            const { data } = await axios.post('contacts', contact);
+            return data;
         } catch (error) {
             return rejectWithValue(error);
         }
