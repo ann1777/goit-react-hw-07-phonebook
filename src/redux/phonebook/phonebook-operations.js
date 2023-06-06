@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import axios from 'axios';
-import * as mockApi from 'services/mock-api';
-// axios.defaults.baseURL = 'https://647de0acaf984710854a85e8.mockapi.io/';
+import axios from 'axios';
+// import * as mockApi from 'services/mock-api';
+axios.defaults.baseURL = 'https://647de0acaf984710854a85e8.mockapi.io/contacts/';
 
 export const fetchContactsThunk = createAsyncThunk(
     'phonebook/fetchContacks',
     async (_, {rejectWithValue}) => {
         try {
-            const { data } = await mockApi.fetchContacts();
-            // const { data } = await axios.get('contacts');
+            // const { data } = await mockApi.fetchContacts();
+            const { data } = await axios.get('contacts');
             return data;
         } catch (error) {
             return rejectWithValue(error);
@@ -20,8 +20,8 @@ export const postContactsThunk = createAsyncThunk(
     'phonebook/postContacts',
     async (contact, {rejectWithValue}) => {
         try {
-            const contacts = await mockApi.postContacts(contact);
-            // const { data } = await axios.post('contacts', contact);
+            // const contacts = await mockApi.postContacts(contact);
+            const { contacts } = await axios.post('contacts', contact);
             return contacts;
         } catch (error) {
             return rejectWithValue(error);
@@ -33,9 +33,9 @@ export const deleteContactsThunk = createAsyncThunk(
     'phonebook/deleteContacts',
     async (id, {rejectWithValue}) => {
         try {
-            const contacts = await mockApi.deleteContacts(id);
-            // await axios.delete(`contacts/${id}`);
-            return contacts;
+            // const contacts = await mockApi.deleteContacts(id);
+            await axios.delete(`contacts/${id}`);
+            return id;
         } catch (error) {
             return rejectWithValue(error);
         }
