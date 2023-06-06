@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import {
   fetchContactsThunk,
-  postContactsThunk,
-  deleteContactsThunk,
+  addContactThunk,
+  deleteContactThunk,
 } from './phonebook-operations';
 
 export const contactsSlice = createSlice({
@@ -25,21 +25,21 @@ export const contactsSlice = createSlice({
       state.contacts.items = payload;
       state.isLoading = false;
     })
-    .addCase(postContactsThunk.fulfilled, (state, { payload }) => {
+    .addCase(addContactThunk.fulfilled, (state, { payload }) => {
         state.contacts.items.push(payload);
         state.isLoading = false;
     })
-    .addCase(postContactsThunk.pending, (state, _) => {
+    .addCase(addContactThunk.pending, (state, _) => {
         state.isLoading = true;
     })
-    .addCase(postContactsThunk.rejected, (state, action) => {
+    .addCase(addContactThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action;
     })
-    .addCase(deleteContactsThunk.pending, (state, _) => {
+    .addCase(deleteContactThunk.pending, (state, _) => {
         state.isLoading = true;
     })
-    .addCase(deleteContactsThunk.fulfilled, (state, { payload }) => {
+    .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
         const contactId = state.contacts.items.findIndex(
           item => item.id === payload
         );
@@ -47,7 +47,7 @@ export const contactsSlice = createSlice({
         // state.data = state.data.filter(({id}) => id !== payload);
         state.isLoading = false;
     })
-    .addCase(deleteContactsThunk.rejected, (state, action) => {
+    .addCase(deleteContactThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action;
     })

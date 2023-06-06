@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { List, ContactItem, DeleteButton } from './ContactList.styled';
-import { fetchContactsThunk,  deleteContactsThunk} from 'redux/phonebook/phonebook-operations';
+import { fetchContactsThunk,  deleteContactThunk} from 'redux/phonebook/phonebook-operations';
 
 function ContactList() {
   const dispatcher = useDispatch();
@@ -14,7 +14,7 @@ function ContactList() {
   const filteredContacts = contacts.filter(el =>
     el.name.toLowerCase().includes(filter.toLocaleLowerCase())
   );
-  const onDelete = id => dispatcher(deleteContactsThunk(id));
+  const onDelete = id => dispatcher(deleteContactThunk(id));
 
   return (
     <List>
