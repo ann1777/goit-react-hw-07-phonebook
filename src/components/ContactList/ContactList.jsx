@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { List, ContactItem, DeleteButton } from './ContactList.styled';
-import { remove } from 'redux/phonebook/phonebookSlice';
+import { fetchContactsThunk,  deleteContactsThunk} from 'redux/phonebook/phonebook-operations';
 
 function ContactList() {
   const contacts = useSelector(state => state.contacts.contacts);
   const filter = useSelector(state => state.contacts.filter);
   const dispatcher = useDispatch();
-  const onDelete = id => dispatcher(remove(id));
+
+  useEffect(() => {
+    dispatcher(fetchContactsThunk());
+  }, [dispatcher]);
+
+  const filteredContacts = contacts.filter(el =>
+    el.name.toLowerCase().includes(filter.toLocaleLowerCase())
+  );
+  const onDelete = id => dispatcher(deleteContactsThunk(id));
 
   return (
     <List>
-      {contacts
-        .filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
+      {filteredContacts
         .map(({ id, name, number }) => {
           return (
             <ContactItem key={id}>
