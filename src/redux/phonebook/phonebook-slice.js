@@ -11,44 +11,20 @@ export const contactsSlice = createSlice({
   initialState: {
     contacts: [],
     isLoading: false,
-    error: null,
+    error: '',
   },
   extraReducers: builder => { builder
-    .addCase(fetchContactsThunk.pending, (state, _) => {
-      state.isLoading = true;
-    })
-    .addCase(fetchContactsThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action;
-      })
     .addCase(fetchContactsThunk.fulfilled, (state, { payload }) => {
       state.contacts = payload;
-      state.isLoading = false;
     })
     .addCase(addContactThunk.fulfilled, (state, { payload }) => {
         state.contacts.push(payload);
-        state.isLoading = false;
-    })
-    .addCase(addContactThunk.pending, (state, _) => {
-        state.isLoading = true;
-    })
-    .addCase(addContactThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action;
-    })
-    .addCase(deleteContactThunk.pending, (state, _) => {
-        state.isLoading = true;
     })
     .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
         const contactId = state.contacts.findIndex(
           item => item.id === payload);
-        state.contacts.items.splice(contactId, 1);
-        state.isLoading = false;
-    })
-    .addCase(deleteContactThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action;
-    })
+        state.contacts.splice(contactId, 1);
+    })   
   }
 })
 

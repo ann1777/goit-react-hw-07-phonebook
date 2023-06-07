@@ -12,9 +12,13 @@ function ContactList() {
   console.log(contacts);
   const filter = useSelector(state => state.filter);
   const filteredContacts = contacts.filter(el =>
-    el.name.toLowerCase().includes(filter.toLowerCase())
+  {
+    console.log(el)
+    
+    return el.name.toLowerCase().includes(filter.toLowerCase())
+  }
+    
   );
-  const onDelete = id => dispatcher(deleteContactThunk(id));
 
   return (
     <List>
@@ -24,7 +28,7 @@ function ContactList() {
             <ContactItem key={id}>
               <span>{name} :</span>
               <span>{number}</span>
-              <DeleteButton type="button" onClick={() => onDelete(id)}>
+              <DeleteButton type="button" onClick={() => dispatcher(deleteContactThunk(id))}>
                 Remove
               </DeleteButton>
             </ContactItem>

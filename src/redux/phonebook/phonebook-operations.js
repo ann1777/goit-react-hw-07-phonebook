@@ -20,7 +20,8 @@ export const addContactThunk = createAsyncThunk(
     'contacts/addContact',
     async (contact, {rejectWithValue}) => {
         try {
-            // const contacts = await mockApi.postContacts(contact);
+            // const newContact = await mockApi.postContacts(contact);
+            console.log(contact)
             const { data } = await axios.post('contacts', contact);
             return data;
         } catch (error) {
@@ -31,11 +32,12 @@ export const addContactThunk = createAsyncThunk(
 
 export const deleteContactThunk = createAsyncThunk(
     'contacts/deleteContact',
-    async (id, {rejectWithValue}) => {
+    async (id, {rejectWithValue, dispatch}) => {
         try {
-            // const contacts = await mockApi.deleteContacts(id);
+            // await mockApi.deleteContacts(id);
             await axios.delete(`contacts/${id}`);
-            return id;
+            dispatch(fetchContactsThunk());
+            // return id;
         } catch (error) {
             return rejectWithValue(error);
         }
