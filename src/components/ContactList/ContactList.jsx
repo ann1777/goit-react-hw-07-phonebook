@@ -10,9 +10,9 @@ function ContactList() {
   }, [dispatcher]);
   const contacts = useSelector(state => state.contacts.contacts);
   console.log(contacts);
-  const filter = useSelector(state => state.contacts.filter);
+  const filter = useSelector(state => state.filter);
   const filteredContacts = contacts.filter(el =>
-    el.name.toLowerCase().includes(filter.toLocaleLowerCase())
+    el.name.toLowerCase().includes(filter.toLowerCase())
   );
   const onDelete = id => dispatcher(deleteContactThunk(id));
 

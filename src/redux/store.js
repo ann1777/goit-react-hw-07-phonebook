@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { contactsSlice } from './phonebook/phonebook-slice';
+import { contactsReducer, filterReducer } from './phonebook/phonebook-slice';
 
 const store = configureStore({
-  reducer: { contacts: contactsSlice.reducer },
+  reducer: { contacts: contactsReducer, filter: filterReducer },
   devTools: process.env.NODE_ENV === 'development',
 });
 
